@@ -1,9 +1,25 @@
 1.数据库设计要合理 3F
+        a.原子约束，分到不可再分
+        b.保证唯一性，主键
+        c.不要有冗余数据
+
 2.增加索引  普通，主键，唯一，全文
-3.分表分库技术 取摸分表，水平分割，垂直分割
+3.分表分库技术
+        a.垂直拆分：把表按模块划分到不同数据库表中
+        b.水平分割：拆分行数据到不同表中。取模方式分表 rbs阿里云数据库已经实现
+
 4.读写分离
 5.存储过程
 6.配置mysql最大连接数 my.ini
 7.mysql服务器升级
 8.随时清理碎片化
 9.sql语句调优
+        show status like 'uptime';      mysql数据库启动了多少时间
+        show  stauts like 'com_select'  show stauts like 'com_insert' ...类推 update  delete（显示数据库的查询，更新，添加，删除的次数）
+        show [session|global] status like .... 如果你不写  [session|global] 默认是session 会话，指取出当前窗口的执行，如果你想看所有(从mysql 启动到现在，则应该 global)
+        show status like  'connections ';       显示到mysql数据库的连接数
+        show status like 'slow_queries';        显示慢查询次数
+        show variables like 'long_query_time';  查询慢查询时间
+        set long_query_time=1;                  修改慢查询时间。但是重启mysql之后，long_query_time依然是my.ini中的值、
+
+        bin\mysqld.exe --safe-mode  --slow-query-log [mysql5.5 可以在my.ini指定]
