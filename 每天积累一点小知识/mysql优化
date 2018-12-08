@@ -4,6 +4,12 @@
         c.不要有冗余数据
 
 2.增加索引  普通，主键，唯一，全文
+        EXPLAIN sql语句 可以查看sql执行是否使用索引
+        优点：提高程序效率
+        缺点：增加、删除慢，索引文件需要更新，增加内存
+
+        查询次数比较多，内容不同
+
 3.分表分库技术
         a.垂直拆分：把表按模块划分到不同数据库表中
         b.水平分割：拆分行数据到不同表中。取模方式分表 rbs阿里云数据库已经实现
@@ -13,6 +19,8 @@
 6.配置mysql最大连接数 my.ini
 7.mysql服务器升级
 8.随时清理碎片化
+        optimize table name;    对myisam进行清理
+
 9.sql语句调优
         show status like 'uptime';      mysql数据库启动了多少时间
         show  stauts like 'com_select'  show stauts like 'com_insert' ...类推 update  delete（显示数据库的查询，更新，添加，删除的次数）
@@ -23,3 +31,11 @@
         set long_query_time=1;                  修改慢查询时间。但是重启mysql之后，long_query_time依然是my.ini中的值、
 
         bin\mysqld.exe --safe-mode  --slow-query-log [mysql5.5 可以在my.ini指定]
+
+10.存储引擎
+        innodb  支持事务，增删慢
+        myisam  不支持事务，增删快
+
+11.高可用
+        主从复制：
+        读写分离：mycat
