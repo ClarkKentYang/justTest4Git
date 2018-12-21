@@ -1,0 +1,33 @@
+BigDecimal是处理高精度的浮点数运算的常用的一个类
+
+当需要将BigDecimal中保存的浮点数值打印出来，特别是在页面上显示的时候，就有可能遇到预想之外的科学技术法表示的问题。
+
+一般直接使用 BigDecimal.toString()方法即可以完成浮点数的打印。
+
+如：
+
+    System.out.println( new BigDecimal("10000000000").toString());
+
+但是，toString()方法输出的字符串并不能保证不是科学计数法。
+
+不过在日常的使用中，用toString()方法输出的就是普通的数字字符串而非科学计数法。
+
+直接这么写：
+
+    System.out.println( new BigDecimal("100.000").toString());
+
+程序的输出即为：  100.000
+
+如果我们希望去除末尾多余的0，那么我们应该这么写：
+
+    System.out.println( new BigDecimal("100.000").stripTrailingZeros().toString());
+
+其中，stripTrailingZeros()函数就是用于去除末尾多余的0的，但是此时程序的输出为： 1E+2
+
+是科学计数法，可能并不是我们想要的。
+
+解决的方法很简单，如果想要避免输出科学计数法的字符串，我们要用toPlainString()函数代替toString()。如：
+
+    System.out.println( new BigDecimal("100.000").stripTrailingZeros().toPlainString());
+
+此时程序的输出就为 100
